@@ -1,1 +1,6 @@
+flask
+flask_sqlalchemy
+flask_restful
+neo4j
+pymysql
 
