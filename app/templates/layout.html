@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Social</title>
+    <!-- Puedes agregar aquí enlaces a hojas de estilo (CSS) o archivos JS -->
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a la Red Social</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('users') }}">Usuarios</a></li>
+                <li><a href="{{ url_for('posts') }}">Publicaciones</a></li>
+                <li><a href="{{ url_for('influencers') }}">Influencers</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Aquí se insertará el contenido de cada página que herede de esta plantilla -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Red Social</p>
+    </footer>
+</body>
+</html>
