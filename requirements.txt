@@ -1,6 +1,7 @@
-flask
-flask_sqlalchemy
-flask_restful
-neo4j
-pymysql
-
+Flask==2.2.3
+Flask-SQLAlchemy==2.5.1
+Flask-RESTful==0.3.9
+Flask-Migrate==3.1.0
+neo4j==5.8.0
+pymysql==1.0.2
+python-dotenv==0.20.0  # Solo si hay un archivo .env para manejar variables de entorno
