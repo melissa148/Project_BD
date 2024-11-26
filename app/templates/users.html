@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Usuarios de la Red Social</h2>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.nombre }} - {{ user.correo }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
