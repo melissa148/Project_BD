@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Influencers</h2>
+    <ul>
+        {% for influencer in influencers %}
+            <li>{{ influencer.nombre }} - {{ influencer.seguidores }} seguidores</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
