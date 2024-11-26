@@ -1,35 +1,31 @@
 from flask import Blueprint, request, jsonify
-from app import db, neo4j
+from app import db
 from app.models import Persona
-from app.neo4j_connection import Neo4jConnection
 
+# Definir el Blueprint para usuarios
 user_bp = Blueprint('user_bp', __name__)
 
-@user_bp.route('/users', methods=['POST'])
+# Ruta para crear un nuevo usuario
+@user_bp.route('/', methods=['POST'])
 def create_user():
     data = request.json
-    # Crear persona en MySQL
-    new_persona = Persona(
-        nombre=data['name'],
-        fecha_nacimiento=data['birth_date'],
-        correo_electronico=data.get('email'),
-        telefono=data.get('phone')
-    )
-    db.session.add(new_persona)
-    db.session.commit()
-
-    # Crear nodo en Neo4j
-    query = (
-        "CREATE (u:Persona {nombre: $nombre, fecha_nacimiento: $fecha_nacimiento, correo_electronico: $correo_electronico, telefono: $telefono}) "
-        "RETURN u"
-    )
-    parameters = {
-        'nombre': data['name'],
-        'fecha_nacimiento': data['birth_date'],
-        'correo_electronico': data.get('email'),
-        'telefono': data.get('phone')
-    }
-    neo4j.query(query, parameters)
+    if 'nombre' not in data or 'fechaNacimiento' not in data:
+        return jsonify({"message": "Nombre y fecha de nacimiento son requeridos"}), 400
     
-    return jsonify({"message": "User created successfully in both databases"}), 201
+    # Crear usuario en la base de datos MySQL
+    new_user = Persona(
+        nombre=data['nombre'],
+        correo=data.get('correo'),
+        celular=data.get('celular'),
+        fechaNacimiento=data['fechaNacimiento']
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    
+    return jsonify({"message": "User created successfully"}), 201
 
+# Ruta para obtener todos los usuarios
+@user_bp.route('/', methods=['GET'])
+def get_users():
+    users = Persona.query.all()
+    return jsonify([{'id': user.id, 'nombre': user.nombre, 'correo': user.correo} for user in users]), 200
