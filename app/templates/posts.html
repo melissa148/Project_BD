@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Publicaciones Recientes</h2>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{{ post.url }}" target="_blank">Ver publicación</a>
+                {% if post.esEspecial %}
+                    <span>(Especial)</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
